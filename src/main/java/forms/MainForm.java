@@ -4,6 +4,8 @@
  */
 package forms;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.User;
 import services.FileManager;
 
@@ -106,7 +108,7 @@ public class MainForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(263, Short.MAX_VALUE)
+                .addContainerGap(272, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(ErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -136,7 +138,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addComponent(PasswordInput))
                     .addComponent(SuccessMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
-                .addGap(190, 190, 190))
+                .addGap(181, 181, 181))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,6 +219,11 @@ public class MainForm extends javax.swing.JFrame {
         SuccessMessage.setText("Welcome " + newUser.getFirstName() + "!");
         FileManager manager = new FileManager();
         manager.writeNewUser(newUser);
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
+        this.setVisible(false);
+       
+          
     }//GEN-LAST:event_SubmitBtnActionPerformed
 
     /**
