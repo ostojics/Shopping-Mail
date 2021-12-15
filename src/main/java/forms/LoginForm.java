@@ -4,6 +4,7 @@
  */
 package forms;
 
+import models.User;
 import services.FileManager;
 
 /**
@@ -138,7 +139,22 @@ public class LoginForm extends javax.swing.JFrame {
         
         UsernameInput.setText("");
         PasswordInput.setText("");
-        LoginError.setText("");     
+        LoginError.setText("");  
+        
+        User user = manager.loadUser(username, password);
+        String userRole = user.getRole();
+        
+        if(userRole.equals("Manager")) {
+            ManagerPanel managerPanel = new ManagerPanel();
+            managerPanel.setVisible(true);
+            this.setVisible(false);
+        }
+        
+        if(userRole.equals("Customer")) {
+            CustomerPanel userPanel = new CustomerPanel();
+            userPanel.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

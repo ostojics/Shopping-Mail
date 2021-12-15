@@ -4,8 +4,7 @@
  */
 package forms;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.UUID;
 import models.User;
 import services.FileManager;
 
@@ -205,13 +204,14 @@ public class MainForm extends javax.swing.JFrame {
         boolean isLastNameEmpty = lastName.equals("");
         boolean isUsernameEmpty = username.equals("");
         boolean isPasswordEmpty = password.equals("");
+        String uniqueID = UUID.randomUUID().toString();
         
         if(isFirstNameEmpty || isLastNameEmpty || isUsernameEmpty || isPasswordEmpty) {
             ErrorMessage.setText("Every input has to be filled");
             return;
         }
         
-        User newUser = new User(firstName, lastName, username, role, password);
+        User newUser = new User(firstName, lastName, username, role, password, uniqueID);
         FirstNameInput.setText("");
         LastNameInput.setText("");
         UsernameInput.setText("");

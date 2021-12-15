@@ -17,13 +17,13 @@ public class User {
     private String role;
     private String id;
     
-    public User(String firstName, String lastName, String username, String role, String password) {
+    public User(String firstName, String lastName, String username, String role, String password, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.role = role;
-        this.id = UUID.randomUUID().toString();
+        this.id = id;
     }
     
     public String getFirstName() {

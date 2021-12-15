@@ -8,7 +8,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.Arrays;
 import models.User;
 
 /**
@@ -68,4 +67,47 @@ public class FileManager {
         
         return isValid;
     }
+    
+    public User loadUser(String username, String password) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("data" + File.separator + "users.txt"));
+            String line;
+            
+             while ((line = reader.readLine()) != null) {
+                String usernameMatcher = String.format("Username:%s", username);
+                String passwordMatcher = String.format("Password:%s", password);
+                String[] split = line.split("\\s+");
+                String currentUsername = "";
+                String currentPassword = "";
+                
+                if(split.length > 1) {
+                   currentUsername = split[4];
+                   currentPassword = split[5];
+                }
+                
+                if(currentUsername.equals(usernameMatcher) && currentPassword.equals(passwordMatcher)) {
+                    String firstName = "";
+                    String lastName = "";
+                    String role = "";
+                    String id = "";
+                   if(split.length > 1) {
+                       firstName = split[1].substring(split[1].indexOf(":")+1);
+                       lastName = split[3].substring(split[3].indexOf(":")+1);
+                       role = split[6].substring(split[6].indexOf(":")+1);
+                       id = split[7].substring(split[7].indexOf(":")+1);
+                   }
+                   
+                   User loadedUser = new User(firstName, lastName, currentUsername, role, currentPassword, id);
+                    reader.close();
+                    return loadedUser;
+                }
+            }
+             
+            reader.close();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+       User user = new User("", "", "", "", "", "");
+       return user;
+    };
 }
