@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import models.Product;
 import models.User;
 
 /**
@@ -110,4 +111,18 @@ public class FileManager {
        User user = new User("", "", "", "", "", "");
        return user;
     };
+    
+    public void writeNewProduct(Product p) {
+        try {
+            new File("data").mkdir();
+            FileWriter writer = new FileWriter("data" + File.separator + "products.txt", true);
+            String data = String.format("Name:%s Price:%s Id:%s \n", 
+                    p.getName(), Double.toString(p.getPrice()), p.getId());
+            
+            writer.write(data);
+            writer.close();
+        } catch(Throwable throwable) {
+             throwable.printStackTrace();
+        } 
+    }
 }
