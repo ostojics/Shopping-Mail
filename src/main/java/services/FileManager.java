@@ -125,4 +125,21 @@ public class FileManager {
              throwable.printStackTrace();
         } 
     }
+    
+    public Product loadProducts() {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("data" + File.separator + "products.txt"));
+            String line;
+            
+            while ((line = reader.readLine()) != null) {
+                Product p = Product.fromLine(line);
+                System.out.println(p.getName());
+                return p;
+            }
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        
+        return new Product("", 0.00, "");
+    }
 }
