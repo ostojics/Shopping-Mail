@@ -28,6 +28,7 @@ public class ManagerPanel extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         AddProduct = new javax.swing.JButton();
+        ViewProductsBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,6 +44,14 @@ public class ManagerPanel extends javax.swing.JFrame {
             }
         });
 
+        ViewProductsBtn.setText("ViewProducts");
+        ViewProductsBtn.setToolTipText("");
+        ViewProductsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ViewProductsBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -53,9 +62,11 @@ public class ManagerPanel extends javax.swing.JFrame {
                         .addGap(87, 87, 87)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(AddProduct)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                        .addGap(73, 73, 73)
+                        .addComponent(AddProduct)
+                        .addGap(50, 50, 50)
+                        .addComponent(ViewProductsBtn)))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -63,7 +74,9 @@ public class ManagerPanel extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(AddProduct)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddProduct)
+                    .addComponent(ViewProductsBtn))
                 .addContainerGap(185, Short.MAX_VALUE))
         );
 
@@ -76,6 +89,13 @@ public class ManagerPanel extends javax.swing.JFrame {
         form.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_AddProductActionPerformed
+
+    private void ViewProductsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewProductsBtnActionPerformed
+        // TODO add your handling code here:
+        ProductsList productsList = new ProductsList();
+        productsList.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ViewProductsBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,6 +134,7 @@ public class ManagerPanel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddProduct;
+    private javax.swing.JButton ViewProductsBtn;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
