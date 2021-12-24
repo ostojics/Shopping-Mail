@@ -1,2 +1,5 @@
 Name:Jeans Price:15.0 Id:e7feef94-86b2-4277-9f68-b2a8581f72a8 
 Name:Jacket Price:100.0 Id:9e5d207e-ef0e-499d-91f3-affd89608b3e 
+Name:Sweater Price:60.0 Id:44f7d1eb-269c-461e-aa16-3846babae218 
+Name:Shoes Price:80.0 Id:36362f20-6196-418c-873d-446b6d911bc8 
+Name:Shirt Price:20.0 Id:097024be-cf73-4857-a8b8-f4c95e59e56b 

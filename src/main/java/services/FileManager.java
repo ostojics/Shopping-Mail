@@ -4,10 +4,12 @@
  */
 package services;
 
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import models.Product;
 import models.User;
 
@@ -124,5 +126,26 @@ public class FileManager {
         } catch(Throwable throwable) {
              throwable.printStackTrace();
         } 
+    }
+    
+    
+    public java.util.List<Product> loadProducts() {
+        java.util.List<Product> products = new ArrayList<>();
+        
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("data" + File.separator + "products.txt"));
+            String line;
+            
+            while ((line = reader.readLine()) != null) {
+                Product p = Product.fromLine(line);
+                products.add(p);
+            }
+            
+            return products;
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        
+        return products;
     }
 }

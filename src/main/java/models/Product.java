@@ -19,6 +19,23 @@ public class Product {
         this.productId = id;
     }
     
+    public static Product fromLine(String line) {
+         String[] split = line.split("\\s+");
+         String name = "";
+         String price = "";
+         String id = "";
+         
+         if(split.length > 1) {
+            name = split[0].substring(split[0].indexOf(":")+1);
+            price = split[1].substring(split[1].indexOf(":")+1);
+            id=split[2].substring(split[2].indexOf(":")+1);
+         }
+         
+         Product p = new Product(name, Double.parseDouble(price), id);
+         
+         return p;
+    }
+    
     public String getName() {
         return this.productName;
     }
