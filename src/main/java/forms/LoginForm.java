@@ -151,7 +151,7 @@ public class LoginForm extends javax.swing.JFrame {
         }
         
         if(userRole.equals("Customer")) {
-            CustomerPanel userPanel = new CustomerPanel();
+            Parking userPanel = new Parking();
             userPanel.setVisible(true);
             this.setVisible(false);
         }
