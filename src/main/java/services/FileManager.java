@@ -4,14 +4,16 @@
  */
 package services;
 
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import models.Product;
 import models.User;
+import models.Worker;
 
 /**
  *
@@ -147,5 +149,30 @@ public class FileManager {
         }
         
         return products;
+    }
+    
+    public void writeNewWorker(Worker w) {
+         try {
+            new File("data").mkdir();
+            DateFormatter df = new DateFormatter();
+            String dateString = df.dateToString(w.getWorkStart());
+            String statusId = String.valueOf(w.getStatusId());
+            FileWriter writer = new FileWriter("data" + File.separator + "workers.txt", true);
+            String data = String.format("id:%s name:%s surname:%s username:%s password:%s role:%s dateStart: %s status:%s \n", 
+                    w.getId(), w.getFirstName(), w.getLastName(), w.getUsername(), w.getPassword(), w.getRole(), dateString, statusId);
+            
+            writer.write(data);
+            writer.close();
+            
+            FileWriter workerStatusWriter = new FileWriter("data" + File.separator + "workerStatuses.txt", true);
+            String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+            
+            String statusData = String.format("workerId:%s date:%s time:%s statusId:%s", w.getId(), dateString, timeStamp, statusId); 
+            
+            workerStatusWriter.write(statusData);
+            workerStatusWriter.close();
+        } catch(Throwable throwable) {
+             throwable.printStackTrace();
+        }
     }
 }

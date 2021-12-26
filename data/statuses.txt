@@ -1,0 +1,6 @@
+===========
+Br Staus
+===========
+0  worker
+1  manager 
+2  deleted

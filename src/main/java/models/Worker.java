@@ -11,15 +11,22 @@ import java.util.Date;
  * @author Slobodan
  */
 public class Worker extends User {
+    private int statusId;
     private Date workStart;
     private Date workEnd;
     
-    public Worker(String name, String surname, String username, String password ,String id, Date workStart) {
-        super(name, surname, username, "worker", password, id);
-        this.workStart = workStart;
+    public Worker(String name, String surname, String username, String password ,String id) {
+        super(name, surname, username, "Worker", password, id);
+        this.workStart = new Date();
+        this.statusId = 0;
     }
     
     public Date getWorkStart() {
         return this.workStart;
     }
+    
+    public int getStatusId() {
+        return this.statusId;
+    }
 }
+
