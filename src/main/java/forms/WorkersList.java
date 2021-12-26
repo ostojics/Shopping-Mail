@@ -4,50 +4,58 @@
  */
 package forms;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import models.Product;
+import models.Worker;
 import services.FileManager;
 
 /**
  *
  * @author Slobodan
  */
-public class ProductsList extends javax.swing.JFrame {
+public class WorkersList extends javax.swing.JFrame {
 
     /**
-     * Creates new form ProductsList
+     * Creates new form WorkersList
      */
-    public ProductsList() {
+    public WorkersList() {
         initComponents();
+        FileManager m = new FileManager();
         
-        FileManager manager = new FileManager();
-        java.util.List<Product> products = manager.loadProducts();
-        
+        java.util.List<Worker> workers = m.loadWorkers();
         DefaultTableModel defaultTableModel = (DefaultTableModel) Table.getModel();
         int rowCount = 0;
         
-        for(Product product : products) {
+        for(Worker w : workers) {
+           Format formatter = new SimpleDateFormat("mm/dd/yyyy");
+           String s = formatter.format(w.getWorkStart());
            rowCount ++;
            Vector<Object> row = new Vector<>();
-           row.add(product.getId());
-           row.add(product.getName());
-           row.add(product.getPrice());
-           
+           row.add(w.getId());
+           row.add(w.getFirstName());
+           row.add(w.getLastName());
+           row.add(s);
+           row.add("-");
+           row.add(String.valueOf(w.getStatusId()));
             defaultTableModel.addRow(row);
         }
         
-        defaultTableModel.setRowCount(rowCount);
+         defaultTableModel.setRowCount(rowCount);
         
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         Table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         Table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         Table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-
+        Table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        Table.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        Table.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+ 
         TableCellRenderer rendererFromHeader = Table.getTableHeader().getDefaultRenderer();
         JLabel headerLabel = (JLabel) rendererFromHeader;
         headerLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -72,18 +80,18 @@ public class ProductsList extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Products List");
+        jLabel1.setText("Workers List");
 
         Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Name", "Price"
+                "Id", "Name", "Surname", "DateStart", "DateStop", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -103,28 +111,32 @@ public class ProductsList extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BackBtn)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(292, 292, 292))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(36, 36, 36)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(253, 253, 253)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(BackBtn)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
                 .addComponent(BackBtn)
-                .addGap(109, 109, 109))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
         pack();
@@ -132,8 +144,8 @@ public class ProductsList extends javax.swing.JFrame {
 
     private void BackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackBtnActionPerformed
         // TODO add your handling code here:
-        ManagerPanel managerPanel = new ManagerPanel();
-        managerPanel.setVisible(true);
+        ManagerPanel p = new ManagerPanel();
+        p.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BackBtnActionPerformed
 
@@ -154,23 +166,22 @@ public class ProductsList extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProductsList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(WorkersList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProductsList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(WorkersList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProductsList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(WorkersList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProductsList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(WorkersList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProductsList().setVisible(true);
+                new WorkersList().setVisible(true);
             }
         });
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

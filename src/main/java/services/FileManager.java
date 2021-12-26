@@ -158,7 +158,7 @@ public class FileManager {
             String dateString = df.dateToString(w.getWorkStart());
             String statusId = String.valueOf(w.getStatusId());
             FileWriter writer = new FileWriter("data" + File.separator + "workers.txt", true);
-            String data = String.format("id:%s name:%s surname:%s username:%s password:%s role:%s dateStart: %s status:%s \n", 
+            String data = String.format("id:%s name:%s surname:%s username:%s password:%s role:%s dateStart:%s status:%s \n", 
                     w.getId(), w.getFirstName(), w.getLastName(), w.getUsername(), w.getPassword(), w.getRole(), dateString, statusId);
             
             writer.write(data);
@@ -174,5 +174,25 @@ public class FileManager {
         } catch(Throwable throwable) {
              throwable.printStackTrace();
         }
+    }
+    
+    public java.util.List<Worker> loadWorkers() {
+         java.util.List<Worker> workers = new ArrayList<>();
+         
+         try {
+            BufferedReader reader = new BufferedReader(new FileReader("data" + File.separator + "workers.txt"));
+            String line;
+            
+            while ((line = reader.readLine()) != null) {
+                Worker w = Worker.fromLine(line);
+                workers.add(w);
+            }
+            
+            return workers;
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+         
+      return workers;
     }
 }
