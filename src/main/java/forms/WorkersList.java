@@ -40,13 +40,18 @@ public class WorkersList extends javax.swing.JFrame {
         for(Worker w : workers) {
            Format formatter = new SimpleDateFormat("mm/dd/yyyy");
            String s = formatter.format(w.getWorkStart());
+           String d = "-";
+           if(w.getWorkEnd() != null) {
+               d = formatter.format(w.getWorkEnd());
+           }
            rowCount ++;
+           
            Vector<Object> row = new Vector<>();
            row.add(w.getId());
            row.add(w.getFirstName());
            row.add(w.getLastName());
            row.add(s);
-           row.add("-");
+           row.add(d);
            row.add(String.valueOf(w.getStatusId()));
            defaultTableModel.addRow(row);
            

@@ -35,6 +35,7 @@ public class Worker extends User {
         String password = "";
         String id = "";
         String dateStart = "";
+        String dateEnd = "";
         String statusId = "";
         DateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
   
@@ -45,12 +46,17 @@ public class Worker extends User {
             username = split[3].substring(split[3].indexOf(":")+1);
             password = split[4].substring(split[4].indexOf(":")+1);
             dateStart = split[6].substring(split[6].indexOf(":")+1);
-            statusId = split[7].substring(split[7].indexOf(":")+1);
+            dateEnd = split[7].substring(split[7].indexOf(":")+1);
+            statusId = split[8].substring(split[8].indexOf(":")+1);
         }
         
         try {
+              Worker w = new Worker(name, surname, username, password, id);
             Date date = formatter.parse(dateStart);
-            Worker w = new Worker(name, surname, username, password, id);
+            if(!dateEnd.equals("-")) {
+                Date endDate = formatter.parse(dateEnd);
+                w.setWorkEnd(endDate);
+            }
             w.setWorkStart(date);
             w.setStatusId(Integer.parseInt(statusId));
             
@@ -65,8 +71,12 @@ public class Worker extends User {
     public String toString() {
         DateFormatter df = new DateFormatter();
         String dateString = df.dateToString(this.getWorkStart());
-        String data = String.format("id:%s name:%s surname:%s username:%s password:%s role:%s dateStart:%s status:%s \n", 
-                    this.getId(), this.getFirstName(), this.getLastName(), this.getUsername(), this.getPassword(), this.getRole(), dateString, String.valueOf(this.getStatusId()));
+        String dateEnd = "-";
+        if(this.workEnd != null) {
+            dateEnd = df.dateToString(this.workEnd);
+        }
+        String data = String.format("id:%s name:%s surname:%s username:%s password:%s role:%s dateStart:%s dateEnd:%s status:%s \n", 
+                    this.getId(), this.getFirstName(), this.getLastName(), this.getUsername(), this.getPassword(), this.getRole(), dateString, dateEnd, String.valueOf(this.getStatusId()));
         
         return data;
     }
@@ -75,9 +85,14 @@ public class Worker extends User {
         return this.workStart;
     }
     
+    public Date getWorkEnd() {
+        return this.workEnd;
+    }
+    
     public int getStatusId() {
         return this.statusId;
     }
+    
     
     public void setWorkStart(Date d) {
         this.workStart = d;
@@ -86,6 +101,11 @@ public class Worker extends User {
     public void setStatusId(int id) {
         this.statusId = id;
     }
+    
+    public void setWorkEnd(Date d) {
+        this.workEnd = d;
+    }
+    
    
 }
 

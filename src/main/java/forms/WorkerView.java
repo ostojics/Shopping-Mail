@@ -4,6 +4,7 @@
  */
 package forms;
 
+import java.util.Date;
 import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -149,6 +150,7 @@ public class WorkerView extends javax.swing.JFrame {
       
       if(j.showConfirmDialog(this, "Are you sure you want to fire worker " + w.getFirstName() + " " + w.getLastName() + " " + "?") == j.YES_OPTION){
           w.setStatusId(2);
+          w.setWorkEnd(new Date());
           FileManager manager = new FileManager();
           
           manager.fireWorker(w);
