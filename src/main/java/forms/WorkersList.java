@@ -5,9 +5,14 @@
 package forms;
 
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -23,6 +28,7 @@ public class WorkersList extends javax.swing.JFrame {
     /**
      * Creates new form WorkersList
      */
+    
     public WorkersList() {
         initComponents();
         FileManager m = new FileManager();
@@ -42,7 +48,8 @@ public class WorkersList extends javax.swing.JFrame {
            row.add(s);
            row.add("-");
            row.add(String.valueOf(w.getStatusId()));
-            defaultTableModel.addRow(row);
+           defaultTableModel.addRow(row);
+           
         }
         
          defaultTableModel.setRowCount(rowCount);
@@ -61,6 +68,34 @@ public class WorkersList extends javax.swing.JFrame {
         headerLabel.setHorizontalAlignment(JLabel.CENTER);
 
         Table.setModel(defaultTableModel);
+        
+    Table.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            try {
+                int row = Table.rowAtPoint(evt.getPoint());
+                int col = Table.columnAtPoint(evt.getPoint());
+                DefaultTableModel defaultTableModel = (DefaultTableModel) Table.getModel();
+                JTable table = new JTable(defaultTableModel);
+                SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
+                
+                String id = table.getValueAt(row, 0).toString();
+                String name = table.getValueAt(row, 1).toString();
+                String surname = table.getValueAt(row, 2).toString();
+                Date date = formatter.parse(table.getValueAt(row, 3).toString());
+                String status = table.getValueAt(row, 5).toString();
+                
+                Worker w = new Worker(name ,surname, "", "", id);
+                
+                WorkerView view = new WorkerView(w);
+                view.setVisible(true);
+                table.setVisible(false);
+            } catch (ParseException ex) {
+                Logger.getLogger(WorkersList.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    });
+    
     }
 
     /**
