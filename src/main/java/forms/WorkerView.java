@@ -6,16 +6,19 @@ package forms;
 
 import java.util.Vector;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import models.Worker;
+import services.FileManager;
 
 /**
  *
  * @author Slobodan
  */
 public class WorkerView extends javax.swing.JFrame {
+    private Worker currentWorker;
 
     /**
      * Creates new form WorkerView
@@ -25,6 +28,9 @@ public class WorkerView extends javax.swing.JFrame {
     }
     
     public WorkerView(Worker w) {
+        
+        this.currentWorker = w;
+        
         initComponents();
         
         DefaultTableModel defaultTableModel = (DefaultTableModel) Table.getModel();
@@ -60,6 +66,8 @@ public class WorkerView extends javax.swing.JFrame {
         WorkerName = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Table = new javax.swing.JTable();
+        FireWorkerBtn = new javax.swing.JButton();
+        BackBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,6 +91,20 @@ public class WorkerView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Table);
 
+        FireWorkerBtn.setText("Fire Worker");
+        FireWorkerBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FireWorkerBtnActionPerformed(evt);
+            }
+        });
+
+        BackBtn.setText("Back");
+        BackBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,7 +116,13 @@ public class WorkerView extends javax.swing.JFrame {
                         .addComponent(WorkerName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(170, 170, 170)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BackBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(FireWorkerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(163, 163, 163))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(180, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -103,12 +131,36 @@ public class WorkerView extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(WorkerName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FireWorkerBtn)
+                    .addComponent(BackBtn))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void FireWorkerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FireWorkerBtnActionPerformed
+        // TODO add your handling code here:
+      Worker w = this.currentWorker;
+      JOptionPane j = new JOptionPane();
+      
+      if(j.showConfirmDialog(this, "Are you sure you want to fire worker " + w.getFirstName() + " " + w.getLastName() + " " + "?") == j.YES_OPTION){
+          w.setStatusId(2);
+          FileManager manager = new FileManager();
+          
+          manager.fireWorker(w);
+      };
+    }//GEN-LAST:event_FireWorkerBtnActionPerformed
+
+    private void BackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackBtnActionPerformed
+        // TODO add your handling code here:
+        WorkersList l = new WorkersList();
+        l.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BackBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,6 +198,8 @@ public class WorkerView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BackBtn;
+    private javax.swing.JButton FireWorkerBtn;
     private javax.swing.JTable Table;
     private javax.swing.JLabel WorkerName;
     private javax.swing.JScrollPane jScrollPane1;
