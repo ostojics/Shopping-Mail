@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Product;
+import models.Status;
 import models.User;
 import models.Worker;
 
@@ -242,4 +243,24 @@ public class FileManager {
         }
     }
     
+    public java.util.List<Status> loadWorkerStatuses(String id) {
+        java.util.List<Status> statuses = new ArrayList<>();
+        
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("data" + File.separator + "workerStatuses.txt"));
+            
+            String line;
+            
+            while ((line = reader.readLine()) != null) {
+                if(line.contains("workerId:" + id)) {
+                    Status s = Status.fromLine(line);
+                    statuses.add(s);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return statuses;
+    }
 }

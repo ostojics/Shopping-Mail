@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import models.Status;
 import models.Worker;
 import services.FileManager;
 
@@ -38,17 +39,22 @@ public class WorkerView extends javax.swing.JFrame {
         }
         
         if(w.getStatusId() == 2) {
-             PromoteBtn.setVisible(false);
-             FireWorkerBtn.setVisible(false);
+            PromoteBtn.setVisible(false);
+            FireWorkerBtn.setVisible(false);
         }
-        
+       
+        loadTable();
+        loadStatusesTable();
+    }
+    
+    public void loadTable() {
         DefaultTableModel defaultTableModel = (DefaultTableModel) Table.getModel();
         Vector<Object> row = new Vector<>();
-        row.add(w.getId());
-        row.add(w.getFirstName());
-        row.add(w.getLastName());
+        row.add(this.currentWorker.getId());
+        row.add(this.currentWorker.getFirstName());
+        row.add(this.currentWorker.getLastName());
         defaultTableModel.addRow(row);
-        WorkerName.setText(w.getFirstName());
+        WorkerName.setText(this.currentWorker.getFirstName());
         
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -61,6 +67,38 @@ public class WorkerView extends javax.swing.JFrame {
         headerLabel.setHorizontalAlignment(JLabel.CENTER);
 
         Table.setModel(defaultTableModel);
+    }
+    
+    public void loadStatusesTable() {
+        FileManager m = new FileManager();
+        java.util.List<Status> statuses = m.loadWorkerStatuses(this.currentWorker.getId());
+        
+        DefaultTableModel defaultTableModel = (DefaultTableModel) StatusesTable.getModel();
+        int rowCount = 0;
+        
+        for(Status s : statuses) {
+            Vector<Object> row = new Vector<>();
+           
+            row.add(s.getDate());
+            row.add(s.getTime());
+            row.add(s.getId());
+            defaultTableModel.addRow(row);
+            rowCount ++;
+        }
+            
+        defaultTableModel.setRowCount(rowCount);
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        StatusesTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        StatusesTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        StatusesTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+ 
+        TableCellRenderer rendererFromHeader = StatusesTable.getTableHeader().getDefaultRenderer();
+        JLabel headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        StatusesTable.setModel(defaultTableModel);
     }
 
     /**
@@ -78,6 +116,9 @@ public class WorkerView extends javax.swing.JFrame {
         FireWorkerBtn = new javax.swing.JButton();
         BackBtn = new javax.swing.JButton();
         PromoteBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        StatusesTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,6 +163,26 @@ public class WorkerView extends javax.swing.JFrame {
             }
         });
 
+        StatusesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Date", "Time", "StatusId"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(StatusesTable);
+
+        jLabel1.setText("Worker Statuses");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,15 +194,18 @@ public class WorkerView extends javax.swing.JFrame {
                         .addComponent(WorkerName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(170, 170, 170)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(BackBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(FireWorkerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(86, 86, 86)
-                                .addComponent(PromoteBtn))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(180, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(BackBtn)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(FireWorkerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(95, 95, 95)
+                                    .addComponent(PromoteBtn))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +219,11 @@ public class WorkerView extends javax.swing.JFrame {
                     .addComponent(FireWorkerBtn)
                     .addComponent(BackBtn)
                     .addComponent(PromoteBtn))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         pack();
@@ -172,6 +240,7 @@ public class WorkerView extends javax.swing.JFrame {
           FileManager manager = new FileManager();
           
           manager.updateWorker(w);
+          loadStatusesTable();
       };
     }//GEN-LAST:event_FireWorkerBtnActionPerformed
 
@@ -193,6 +262,7 @@ public class WorkerView extends javax.swing.JFrame {
             FileManager manager = new FileManager();
           
             manager.updateWorker(w);
+            loadStatusesTable();
         }
     }//GEN-LAST:event_PromoteBtnActionPerformed
 
@@ -235,8 +305,11 @@ public class WorkerView extends javax.swing.JFrame {
     private javax.swing.JButton BackBtn;
     private javax.swing.JButton FireWorkerBtn;
     private javax.swing.JButton PromoteBtn;
+    private javax.swing.JTable StatusesTable;
     private javax.swing.JTable Table;
     private javax.swing.JLabel WorkerName;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

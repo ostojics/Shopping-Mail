@@ -57,7 +57,7 @@ public class WorkersList extends javax.swing.JFrame {
            
         }
         
-         defaultTableModel.setRowCount(rowCount);
+        defaultTableModel.setRowCount(rowCount);
         
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
