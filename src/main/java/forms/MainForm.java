@@ -6,6 +6,7 @@ package forms;
 
 import java.util.UUID;
 import models.User;
+import models.Worker;
 import services.FileManager;
 
 /**
@@ -70,7 +71,7 @@ public class MainForm extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(65, 110, 145));
         jLabel6.setText("Password:");
 
-        UserRoleSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manager", "Customer" }));
+        UserRoleSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manager", "Customer", "Worker" }));
         UserRoleSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UserRoleSelectActionPerformed(evt);
@@ -208,6 +209,20 @@ public class MainForm extends javax.swing.JFrame {
         
         if(isFirstNameEmpty || isLastNameEmpty || isUsernameEmpty || isPasswordEmpty) {
             ErrorMessage.setText("Every input has to be filled");
+            return;
+        }
+        
+        if(role.equals("Worker")) {
+            Worker newWorker = new Worker(firstName, lastName, username, password, uniqueID);
+            FileManager manager = new FileManager();
+            manager.writeNewWorker(newWorker);
+            FirstNameInput.setText("");
+            LastNameInput.setText("");
+            UsernameInput.setText("");
+            PasswordInput.setText("");
+            LoginForm loginForm = new LoginForm();
+            loginForm.setVisible(true);
+            this.setVisible(false);
             return;
         }
         

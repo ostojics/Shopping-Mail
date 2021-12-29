@@ -4,20 +4,44 @@
  */
 package services;
 
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Product;
 import models.User;
+import models.Worker;
 
 /**
  *
  * @author Slobodan
  */
 public class FileManager {
+    
+    public void writeNewStatus(Worker w) {
+        String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+        DateFormatter df = new DateFormatter();
+        String dateString = df.dateToString(w.getWorkStart());
+        
+        String data = String.format("workerId:%s date:%s time:%s statusId:%s \n", w.getId(), dateString, timeStamp, String.valueOf(w.getStatusId())); 
+        
+        try {
+            FileWriter workerStatusWriter = new FileWriter("data" + File.separator + "workerStatuses.txt", true);
+            workerStatusWriter.write(data);
+            workerStatusWriter.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void writeNewUser(User u) {
         try {
             new File("data").mkdir();
@@ -148,4 +172,74 @@ public class FileManager {
         
         return products;
     }
+    
+    public void writeNewWorker(Worker w) {
+         try {
+            new File("data").mkdir();
+            DateFormatter df = new DateFormatter();
+            String dateString = df.dateToString(w.getWorkStart());
+            String statusId = String.valueOf(w.getStatusId());
+            FileWriter writer = new FileWriter("data" + File.separator + "workers.txt", true);
+            String data = w.toString();
+            
+            writer.write(data);
+            writer.close();
+            
+            writeNewStatus(w);
+        } catch(Throwable throwable) {
+             throwable.printStackTrace();
+        }
+    }
+    
+    public java.util.List<Worker> loadWorkers() {
+         java.util.List<Worker> workers = new ArrayList<>();
+         
+         try {
+            BufferedReader reader = new BufferedReader(new FileReader("data" + File.separator + "workers.txt"));
+            String line;
+            
+            while ((line = reader.readLine()) != null) {
+                if(!line.equals("")) {
+                    Worker w = Worker.fromLine(line);
+                    workers.add(w);
+                }
+          
+            }
+            
+            return workers;
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+         
+      return workers;
+    }
+    
+    public void updateWorker(Worker w) {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("data" + File.separator + "workers.txt"));
+            StringBuffer inputBuffer = new StringBuffer();
+            
+            String line;
+             while ((line = bufferedReader.readLine()) != null) {
+
+                if (line.contains("id:" + w.getId())) {
+                    line = w.toString();
+                }
+                inputBuffer.append(line).append("\n");
+            }
+             
+            writeNewStatus(w);
+             
+            bufferedReader.close();
+
+            FileOutputStream fileOut = new FileOutputStream("data" + File.separator + "workers.txt");
+            fileOut.write(inputBuffer.toString().getBytes());
+            fileOut.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
