@@ -29,10 +29,18 @@ public class WorkerView extends javax.swing.JFrame {
     }
     
     public WorkerView(Worker w) {
+        initComponents();
         
         this.currentWorker = w;
         
-        initComponents();
+        if(w.getStatusId() == 1 || w.getStatusId() == 2) {
+            PromoteBtn.setVisible(false);
+        }
+        
+        if(w.getStatusId() == 2) {
+             PromoteBtn.setVisible(false);
+             FireWorkerBtn.setVisible(false);
+        }
         
         DefaultTableModel defaultTableModel = (DefaultTableModel) Table.getModel();
         Vector<Object> row = new Vector<>();
@@ -69,6 +77,7 @@ public class WorkerView extends javax.swing.JFrame {
         Table = new javax.swing.JTable();
         FireWorkerBtn = new javax.swing.JButton();
         BackBtn = new javax.swing.JButton();
+        PromoteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +115,13 @@ public class WorkerView extends javax.swing.JFrame {
             }
         });
 
+        PromoteBtn.setText("Promote");
+        PromoteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PromoteBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,7 +138,8 @@ public class WorkerView extends javax.swing.JFrame {
                                 .addComponent(BackBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(FireWorkerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(163, 163, 163))
+                                .addGap(86, 86, 86)
+                                .addComponent(PromoteBtn))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(180, Short.MAX_VALUE))
         );
@@ -136,7 +153,8 @@ public class WorkerView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FireWorkerBtn)
-                    .addComponent(BackBtn))
+                    .addComponent(BackBtn)
+                    .addComponent(PromoteBtn))
                 .addContainerGap(109, Short.MAX_VALUE))
         );
 
@@ -153,7 +171,7 @@ public class WorkerView extends javax.swing.JFrame {
           w.setWorkEnd(new Date());
           FileManager manager = new FileManager();
           
-          manager.fireWorker(w);
+          manager.updateWorker(w);
       };
     }//GEN-LAST:event_FireWorkerBtnActionPerformed
 
@@ -163,6 +181,20 @@ public class WorkerView extends javax.swing.JFrame {
         l.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BackBtnActionPerformed
+
+    private void PromoteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PromoteBtnActionPerformed
+        // TODO add your handling code here:
+        Worker w = this.currentWorker;
+        JOptionPane j = new JOptionPane();
+        
+        if(j.showConfirmDialog(this, "Are you sure you want to promote worker " + w.getFirstName() + " " + w.getLastName() + " " + "?") == j.YES_OPTION){
+            w.setStatusId(1);
+            
+            FileManager manager = new FileManager();
+          
+            manager.updateWorker(w);
+        }
+    }//GEN-LAST:event_PromoteBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,6 +234,7 @@ public class WorkerView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackBtn;
     private javax.swing.JButton FireWorkerBtn;
+    private javax.swing.JButton PromoteBtn;
     private javax.swing.JTable Table;
     private javax.swing.JLabel WorkerName;
     private javax.swing.JScrollPane jScrollPane1;

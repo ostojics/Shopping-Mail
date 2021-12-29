@@ -91,6 +91,7 @@ public class WorkersList extends javax.swing.JFrame {
                 String status = table.getValueAt(row, 5).toString();
                 
                 Worker w = new Worker(name ,surname, "", "", id);
+                w.setStatusId(Integer.parseInt(status));
                 
                 WorkerView view = new WorkerView(w);
                 view.setVisible(true);

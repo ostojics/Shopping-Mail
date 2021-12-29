@@ -36,7 +36,8 @@
                               <Component id="BackBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="FireWorkerBtn" min="-2" pref="113" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+                              <Component id="PromoteBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" min="-2" pref="452" max="-2" attributes="0"/>
                       </Group>
@@ -57,6 +58,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="FireWorkerBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BackBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="PromoteBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="109" max="32767" attributes="0"/>
           </Group>
@@ -125,6 +127,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BackBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="PromoteBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Promote"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PromoteBtnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

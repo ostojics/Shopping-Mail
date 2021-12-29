@@ -199,8 +199,11 @@ public class FileManager {
             String line;
             
             while ((line = reader.readLine()) != null) {
-                Worker w = Worker.fromLine(line);
-                workers.add(w);
+                if(!line.equals("")) {
+                    Worker w = Worker.fromLine(line);
+                    workers.add(w);
+                }
+          
             }
             
             return workers;
@@ -211,7 +214,7 @@ public class FileManager {
       return workers;
     }
     
-    public void fireWorker(Worker w) {
+    public void updateWorker(Worker w) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("data" + File.separator + "workers.txt"));
             StringBuffer inputBuffer = new StringBuffer();
@@ -222,7 +225,7 @@ public class FileManager {
                 if (line.contains("id:" + w.getId())) {
                     line = w.toString();
                 }
-                inputBuffer.append(line);
+                inputBuffer.append(line).append("\n");
             }
              
             writeNewStatus(w);
@@ -238,4 +241,5 @@ public class FileManager {
             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 }
