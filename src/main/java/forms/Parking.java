@@ -60,6 +60,11 @@ public class Parking extends javax.swing.JFrame {
         });
 
         AcceptBtn.setText("Accept");
+        AcceptBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AcceptBtnActionPerformed(evt);
+            }
+        });
 
         ErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
         ErrorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -143,6 +148,13 @@ public class Parking extends javax.swing.JFrame {
         DeclineBtn.setVisible(false);
         AcceptBtn.setVisible(false);
     }//GEN-LAST:event_DeclineBtnActionPerformed
+
+    private void AcceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcceptBtnActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        CustomerProductsList p = new CustomerProductsList();
+        p.setVisible(true);
+    }//GEN-LAST:event_AcceptBtnActionPerformed
 
     /**
      * @param args the command line arguments
