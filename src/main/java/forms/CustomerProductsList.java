@@ -72,8 +72,9 @@ public class CustomerProductsList extends javax.swing.JFrame {
                  JOptionPane j = new JOptionPane();
                  
           if(j.showConfirmDialog(Table, "Are you sure you want to add item" + " " + p.getName() + " " + "to cart" + "" + "?") == j.YES_OPTION){
-              
-      };
+              FileManager m = new FileManager();
+              m.writeToCart(String.valueOf(p.getPrice()));
+         };
         }
     });
     }
@@ -144,6 +145,9 @@ public class CustomerProductsList extends javax.swing.JFrame {
 
     private void CheckoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckoutBtnActionPerformed
         // TODO add your handling code here:
+       Checkout c = new Checkout();
+       c.setVisible(true);
+       this.setVisible(false);
     }//GEN-LAST:event_CheckoutBtnActionPerformed
 
     /**
