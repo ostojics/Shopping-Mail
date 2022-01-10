@@ -263,4 +263,36 @@ public class FileManager {
         
         return statuses;
     }
+    
+    public void writeToCart(String amount) {
+        try {
+             new File("data").mkdir();
+             FileWriter writer = new FileWriter("data" + File.separator + "cart.txt", true);
+             
+             writer.write(amount + "\n");
+             writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public double getTotal() {
+        double total = 0;
+        
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("data" + File.separator + "cart.txt"));
+            String line;
+            
+             while ((line = reader.readLine()) != null) {
+               double amount = Double.parseDouble(line);
+               total += amount;
+           }
+             
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+       System.out.println(total);
+       return total;
+    }
 }
