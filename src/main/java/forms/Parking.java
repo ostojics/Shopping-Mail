@@ -4,6 +4,8 @@
  */
 package forms;
 
+import services.FileManager;
+
 /**
  *
  * @author Slobodan
@@ -151,6 +153,13 @@ public class Parking extends javax.swing.JFrame {
 
     private void AcceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcceptBtnActionPerformed
         // TODO add your handling code here:
+        double hours = Double.parseDouble(ParkingHours.getText());
+        double pricePerHour = 50.0;
+        double price = hours * pricePerHour;
+        
+        FileManager m = new FileManager();
+        m.writeToCart("Parking", String.valueOf(price));
+        
         this.setVisible(false);
         CustomerProductsList p = new CustomerProductsList();
         p.setVisible(true);

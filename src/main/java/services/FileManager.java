@@ -264,12 +264,12 @@ public class FileManager {
         return statuses;
     }
     
-    public void writeToCart(String amount) {
+    public void writeToCart( String product, String amount) {
         try {
              new File("data").mkdir();
              FileWriter writer = new FileWriter("data" + File.separator + "cart.txt", true);
              
-             writer.write(amount + "\n");
+             writer.write(product + ":" + " " + amount + "\n");
              writer.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -284,7 +284,8 @@ public class FileManager {
             String line;
             
              while ((line = reader.readLine()) != null) {
-               double amount = Double.parseDouble(line);
+               String[] split = line.split("\\s+");
+               double amount = Double.parseDouble(split[1]);
                total += amount;
            }
              
@@ -294,5 +295,23 @@ public class FileManager {
         
        System.out.println(total);
        return total;
+    }
+    
+    public String getProductsList() {
+         String data = "";   
+        
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("data" + File.separator + "cart.txt"));
+            String line;
+            
+             while ((line = reader.readLine()) != null) {
+               data += line + "\n";
+           }
+             
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return data;
     }
 }
