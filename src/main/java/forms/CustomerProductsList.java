@@ -73,7 +73,7 @@ public class CustomerProductsList extends javax.swing.JFrame {
                  
           if(j.showConfirmDialog(Table, "Are you sure you want to add item" + " " + p.getName() + " " + "to cart" + "" + "?") == j.YES_OPTION){
               FileManager m = new FileManager();
-              m.writeToCart(String.valueOf(p.getPrice()));
+              m.writeToCart(p.getName(), String.valueOf(p.getPrice()));
          };
         }
     });
