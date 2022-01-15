@@ -123,7 +123,7 @@ public class ManagerPanel extends javax.swing.JFrame {
 
     private void AddWorkerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddWorkerBtnActionPerformed
         // TODO add your handling code here:
-        MainForm f = new MainForm();
+        AddUser f = new AddUser();
         f.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_AddWorkerBtnActionPerformed
