@@ -38,6 +38,7 @@ public class Parking extends javax.swing.JFrame {
         DeclineBtn = new javax.swing.JButton();
         AcceptBtn = new javax.swing.JButton();
         ErrorMessage = new javax.swing.JLabel();
+        BackBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +72,13 @@ public class Parking extends javax.swing.JFrame {
         ErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
         ErrorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        BackBtn.setText("Back to login");
+        BackBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,12 +101,16 @@ public class Parking extends javax.swing.JFrame {
                             .addContainerGap()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(PriceInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                                    .addComponent(ErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(DeclineBtn)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(AcceptBtn))))))
+                                    .addComponent(PriceInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(175, 175, 175)
+                                        .addComponent(ErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BackBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(DeclineBtn)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(AcceptBtn)))))))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -119,8 +131,10 @@ public class Parking extends javax.swing.JFrame {
                     .addComponent(AcceptBtn)
                     .addComponent(DeclineBtn))
                 .addGap(18, 18, 18)
-                .addComponent(ErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BackBtn))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,6 +179,13 @@ public class Parking extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_AcceptBtnActionPerformed
 
+    private void BackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackBtnActionPerformed
+        // TODO add your handling code here:
+        LoginForm l = new LoginForm();
+        l.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BackBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -205,6 +226,7 @@ public class Parking extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AcceptBtn;
+    private javax.swing.JButton BackBtn;
     private javax.swing.JButton DeclineBtn;
     private javax.swing.JLabel ErrorMessage;
     private javax.swing.JTextField ParkingHours;
