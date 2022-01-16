@@ -314,4 +314,24 @@ public class FileManager {
         
         return data;
     }
+    
+    public void emptyCart() {
+        FileOutputStream writer = null;
+        try {
+            writer = new FileOutputStream("data" + File.separator + "cart.txt");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            writer.write(("").getBytes());
+        } catch (IOException ex) {
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

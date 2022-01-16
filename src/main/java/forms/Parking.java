@@ -19,6 +19,8 @@ public class Parking extends javax.swing.JFrame {
         initComponents();
         DeclineBtn.setVisible(false);
         AcceptBtn.setVisible(false);
+        FileManager m = new FileManager();
+        m.emptyCart();
     }
 
     /**
