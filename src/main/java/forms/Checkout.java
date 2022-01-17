@@ -53,6 +53,8 @@ public class Checkout extends javax.swing.JFrame {
 
         Total.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
+        PayBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        PayBtn.setForeground(new java.awt.Color(0, 51, 255));
         PayBtn.setText("Pay");
         PayBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,7 +92,7 @@ public class Checkout extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PayBtn))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         pack();
