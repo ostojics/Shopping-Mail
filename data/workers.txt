@@ -1,7 +1,2 @@
-id:67c01951-14bd-40ff-9ade-97265f049157 name:test surname:test username: password: role:Worker dateStart:12/29/2021 dateEnd:12/29/2021 status:2 
-
-
-id:f55fdab1-2523-47dc-8f96-c7d4d4a97496 name:test2 surname:test2 username: password: role:Worker dateStart:12/29/2021 dateEnd:- status:1 
-
-id:34d0c1b9-1c73-4629-8fcc-c43c1a2bcecb name:test surname:test username: password: role:Worker dateStart:01/16/2022 dateEnd:01/16/2022 status:2 
+id:ca39c6ec-e612-4a63-96f2-554458d00c2f name:worker surname:worker username:worker1 password:worker1 role:Worker dateStart:01/17/2022 dateEnd:- status:1 
 

@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import models.Status;
+import models.User;
 import models.Worker;
 import services.FileManager;
 
@@ -260,7 +261,9 @@ public class WorkerView extends javax.swing.JFrame {
             w.setStatusId(1);
             
             FileManager manager = new FileManager();
-          
+            User u = new User(w.getFirstName(), w.getLastName(), w.getUsername(), "Manager", w.getPassword(), w.getId());
+            
+            manager.writeNewUser(u);
             manager.updateWorker(w);
             loadStatusesTable();
         }

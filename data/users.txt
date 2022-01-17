@@ -2,3 +2,5 @@ First Name:Slobodan Last Name:Ostojic Username:ostojics Password:ostoja123 Role:
 First Name:Marko Last Name:Markovic Username:markom Password:marko123 Role:Customer Id:383db603-f706-4e9a-b678-58a664641017 
 First Name:test Last Name:test Username:test Password:test Role:Customer Id:5294f369-b780-4687-ba81-f81c7815df3e 
 First Name:test2 Last Name:test2 Username:test2 Password:test123 Role:Manager Id:8b74d239-6a8d-4002-b0d2-625bfb196e42 
+ 
+First Name:worker Last Name:worker Username:worker1 Password:worker1 Role:Manager Id:ca39c6ec-e612-4a63-96f2-554458d00c2f 
