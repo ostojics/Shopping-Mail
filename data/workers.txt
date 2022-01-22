@@ -1,0 +1,4 @@
+id:cd66ab2d-2795-49cd-bf3d-32a991244b41 name:worker surname:worker username:worker password:worker123 role:Worker dateStart:01/22/2022 dateEnd:01/22/2022 status:2 
+
+id:ce1e1704-180f-45bc-8f7a-dd26a2b72c4f name:worker2 surname:worker2 username:worker2 password:worker2 role:Worker dateStart:01/22/2022 dateEnd:01/22/2022 status:2 
+
