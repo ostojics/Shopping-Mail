@@ -90,7 +90,8 @@ public class WorkersList extends javax.swing.JFrame {
                 Date date = formatter.parse(table.getValueAt(row, 3).toString());
                 String status = table.getValueAt(row, 5).toString();
                 
-                Worker w = new Worker(name ,surname, "", "", id);
+                FileManager m = new FileManager();
+                Worker w = m.loadWorker(id);
                 w.setStatusId(Integer.parseInt(status));
                 
                 WorkerView view = new WorkerView(w);

@@ -33,7 +33,7 @@ public class Welcome extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Slobodan\\Documents\\Coding\\Java\\Shopping Mail\\src\\main\\assets\\logo.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Slobodan\\Documents\\Coding\\Java\\Shopping-Mail\\src\\main\\assets\\logo.png")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(65, 110, 145));

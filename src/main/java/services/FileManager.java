@@ -215,6 +215,31 @@ public class FileManager {
       return workers;
     }
     
+    public Worker loadWorker(String id) {
+        Worker loadedWorker = null;
+        
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("data" + File.separator + "workers.txt"));
+            
+             String line;
+             while ((line = bufferedReader.readLine()) != null) {
+
+                if (line.contains(id)) {
+                    loadedWorker = Worker.fromLine(line);
+                }
+            }
+             
+         
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return loadedWorker;
+    }
+    
     public void updateWorker(Worker w) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("data" + File.separator + "workers.txt"));

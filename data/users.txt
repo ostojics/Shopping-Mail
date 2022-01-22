@@ -1,4 +1,2 @@
-First Name:Slobodan Last Name:Ostojic Username:ostojics Password:ostoja123 Role:Manager Id:b5e5d2d8-9487-41b9-ae77-86d173a8bf61 
-First Name:Marko Last Name:Markovic Username:markom Password:marko123 Role:Customer Id:383db603-f706-4e9a-b678-58a664641017 
-First Name:test Last Name:test Username:test Password:test Role:Customer Id:5294f369-b780-4687-ba81-f81c7815df3e 
-First Name:test2 Last Name:test2 Username:test2 Password:test123 Role:Manager Id:8b74d239-6a8d-4002-b0d2-625bfb196e42 
+First Name:Slobodan Last Name:Ostojic Username:ostojics Password:ostoja123 Role:Manager Id:2e928299-10bf-4fec-9bdf-a3e8a5984374 
+First Name:Marko Last Name:Markovic Username:markom Password:marko123 Role:Customer Id:7219976e-21b4-41b3-9bf7-791cce4168b4 
